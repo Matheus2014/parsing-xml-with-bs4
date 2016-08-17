@@ -13,7 +13,8 @@ print "app | sdkever | targetsdk"
 for app in soup.findAll('application'):
     #pega o id da app. sempre sera a primeira linha id e sdkver
     id = app.get('id')
+    source = app.source.string
     #loop para pegar todos os packages
     for pkg in app.findAll('package'):
         targetSdk = pkg.targetSdkVersion.string if pkg.targetSdkVersion!=None else ""
-        print id, "|", pkg.sdkver.string, "|", targetSdk
+        print id, "|", pkg.sdkver.string, "|", targetSdk, "|", source
