@@ -12,7 +12,9 @@ soup  = bs.BeautifulSoup(xml, 'xml')
 
 URL_PLAY = "http://play.google.com/store/apps/details?id="
 
-print("app | sdkever | targetsdk | source | numDownloads")
+error = open("error.log", 'w')
+
+print("app | sdkver | targetsdk | source | numDownloads")
 #loop para percorrer todas as app 
 for app in soup.findAll('application'):
     #pega o id da app. sempre sera a primeira linha id e sdkver
@@ -32,4 +34,8 @@ for app in soup.findAll('application'):
                 targetSdk = pkg.targetSdkVersion.string if pkg.targetSdkVersion!=None else ""
                 print(id, "|", pkg.sdkver.string, "|", targetSdk, "|", source, "|", num_downloads[0].string)
     except urllib.error.HTTPError as e:
-        pass
+        error.write(url_app)
+        error.write((str(e)))
+
+error.close()
+
